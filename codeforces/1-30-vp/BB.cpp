@@ -6,9 +6,9 @@ char a[20], b[20], s[maxn][20];
 int tr[maxn][26], cnt[maxn], tot;
 
 int v[maxn];    // 字符串在trie上对应的结点
-int insert(char *t) {
+int insert(char *t, int len) {
     int p = 0;
-    for(int i = 0, c; t[i]; ++i) {
+    for(int i = len - 1, c; i >= 0; --i) {
         c = t[i] - 'A';
         if(!tr[p][c]) tr[p][c] = ++tot;
         p = tr[p][c];
@@ -114,15 +114,16 @@ int main() {
     cin >> n;
     for(int i = 1; i <= n; ++i) {
         scanf("%s", s[i]);
-        v[i] = insert(s[i]);
+        int len = strlen(s[i]);
+        v[i] = insert(s[i], len);
     }
     for(int i = 'A'; i <= 'Z'; ++i) tab[i] = -1;
-    for(int i = 0;  i< 10; ++i) vis[i] = 0;
+    for(int i = 0;  i < 10; ++i) vis[i] = 0;
     dfs(0, 0, 0);
 
     int num = 0;
     for(int i = 1; i <= n; ++i) {
-        printf("tst: %d\n", v[i]);
+        //printf("tst: %d\n", v[i]);
         if(cnt[v[i]] == 1) {
             ans[++num] = i;
         }
