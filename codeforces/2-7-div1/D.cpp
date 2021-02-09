@@ -3,7 +3,7 @@
 using namespace std;
 typedef unsigned long long ll;
 
-const int maxn = (1<<25) + 7;
+const int maxn = (1<<24) + 7;
 const int N = 300007;
 
 // 可持久化线段树
@@ -48,6 +48,11 @@ void bsearch(int b, int c, int d, int e, int L, int R, int l, int r) {
     if(R > m) bsearch(tr[b].r,tr[c].r,tr[d].r,tr[e].r, L, R, m + 1, r);
 }
 
+vector<int> ch[N];
+int dep[N]; // 深度
+int anc[N][30]; // 祖先
+int lg;
+
 void dfs(int x, int dad) {
     rt[x] = rt[dad];
     update(rt[x], a[x], hsh[a[x]], 1, n);
@@ -56,11 +61,6 @@ void dfs(int x, int dad) {
         dfs(y, x);
     }
 }
-
-vector<int> ch[N];
-int dep[N]; // 深度
-int anc[N][30]; // 祖先
-int lg;
 
 void change(int x, int dad, int dept) {
     dep[x] = dept;
