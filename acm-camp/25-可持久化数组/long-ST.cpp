@@ -3,13 +3,16 @@
 using namespace std;
 typedef unsigned long long ll;
 
-const int maxn = (1<<25) + 7;
 const int N = 300007;
+const int M = N * 4 * 18; // 350MB, very safe
+const int maxn = (1<<24) + 7; // 268MB, safe
+const int maxn2 = (1<<23) + 7; // 134MB, 勉强 safe
+const int maxn3 = N * 19; // unsafe
 
 // 可持久化线段树
 struct node {
     int l, r; ll val;
-} tr[maxn];
+} tr[M];
 int rt[N], tot;
 int clone(int k) {
     ++tot;
@@ -48,6 +51,11 @@ void bsearch(int b, int c, int d, int e, int L, int R, int l, int r) {
     if(R > m) bsearch(tr[b].r,tr[c].r,tr[d].r,tr[e].r, L, R, m + 1, r);
 }
 
+vector<int> ch[N];
+int dep[N]; // 深度
+int anc[N][30]; // 祖先
+int lg;
+
 void dfs(int x, int dad) {
     rt[x] = rt[dad];
     update(rt[x], a[x], hsh[a[x]], 1, n);
@@ -56,11 +64,6 @@ void dfs(int x, int dad) {
         dfs(y, x);
     }
 }
-
-vector<int> ch[N];
-int dep[N]; // 深度
-int anc[N][30]; // 祖先
-int lg;
 
 void change(int x, int dad, int dept) {
     dep[x] = dept;

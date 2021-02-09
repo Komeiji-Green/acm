@@ -3,13 +3,16 @@
 using namespace std;
 typedef unsigned long long ll;
 
-const int maxn = (1<<24) + 7;
 const int N = 300007;
+const int M = N * 4 * 18; // 350MB, very safe
+const int maxn = (1<<24) + 7; // 268MB, safe
+const int maxn2 = (1<<23) + 7; // 134MB, 勉强 safe
+const int maxn3 = N * 19; // unsafe
 
 // 可持久化线段树
 struct node {
     int l, r; ll val;
-} tr[maxn];
+} tr[M];
 int rt[N], tot;
 int clone(int k) {
     ++tot;
