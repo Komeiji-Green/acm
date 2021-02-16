@@ -78,3 +78,15 @@ int query(int x, int y) {
             ans ^= C[i][j];
     return ans;
 }
+
+struct BIT {
+    ll C[N];
+    void add(int x, ll v) {
+        for(int i = x; i <= n; i += i & (-i)) C[i] += v;
+    }
+    ll query(int x) {
+        ll res = 0;
+        for(int i = x; i; i -= i & (-i)) res += C[i];
+        return res;
+    }
+} Ta[2], Tb[2];
