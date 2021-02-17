@@ -37,13 +37,26 @@ struct Suffix_Automata {
         }
         return ans;
     }
+    void display() {
+        for(int p = 1; p <= sz; ++p) {
+            printf("id = %d: ", p);
+            for(int i = 0; i < 26; ++i) {
+                if(trans[p][i]) {
+                    printf("(%c: %d) ", 'a' + i, trans[p][i]);
+                }
+            }
+            printf("\n");
+        }
+    }
 } T;
 
 char s[maxn], t[maxn];
 int main() {
-    scanf("%s%s", s, t);
+    //scanf("%s%s", s, t);
+    scanf("%s", s);
     for(int i = 0; s[i]; ++i) {
         T.extend(s[i] - 'a');
     }
-    printf("%d\n", T.query(t));
+    T.display();
+    //printf("%d\n", T.query(t));
 }

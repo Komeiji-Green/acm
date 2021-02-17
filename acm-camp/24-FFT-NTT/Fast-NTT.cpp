@@ -99,7 +99,7 @@ void ksm(ll *a, ll *b, ll *c, ll *d, ll *ln, ll k, int n) {
 
 // 以上函数，a为输出，且只需保证a在前n项正确，n为2的整数次幂即可。
 // 需要init
-
+/*
 char s[maxn];
 ll ln[maxn];
 int main() {
@@ -117,4 +117,16 @@ int main() {
     ksm(a, b, c, d, ln, k, len);
     for(int i = 0; i < n; ++i) printf("%lld ", (b[i] + mod) % mod);
     cout << endl;
+}*/
+
+char s[maxn] = "happybirthday";
+int main() {
+    init();
+    int n, len;
+    n = strlen(s);
+    for(len = 1; len < n; len <<= 1);
+    for(int i = 0; i < n; ++i) a[i] = s[i]-'a';
+    NTT(a, len, 1);
+    for(int i = 0; i < len; ++i) printf("%lld ", a[i]);
+    printf("\n");
 }

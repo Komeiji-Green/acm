@@ -34,6 +34,8 @@ int main() {
     scanf("%s %s", s, t);
     int n = strlen(s), m = strlen(t);
     getNext(t, m);
+    //for(int i = 0; i < m; ++i) printf("%d ", fail[i]);
+    //printf("\n");
     solve(s, n, t, m);
     for(int i = 1; i <= tot; ++i) printf("%d\n", ans[i] + 1);
     for(int i = 1; i <= m; ++i) printf("%d ", fail[i]);
