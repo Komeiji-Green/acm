@@ -171,6 +171,18 @@ int exgcd(int a, int b, int &x, int &y) {
     return ans;
 }
 
+ll c;
+// ax + by = c, 开ll
+// 扩展欧几里得算法, 有解当且仅当gcd(a, b) | c
+// a, b 不全为 0, 返回gcd(a, b)
+ll exgcd(ll a, ll b, ll &x, ll &y) {
+    if(b == 0) { x = c / a; y = 0; return a; }
+    ll ans = exgcd(b, a % b, x, y);
+    ll xx = x; // xx == x'
+    x = y, y = xx - a / b * y;
+    return ans;
+}
+
 // ax + by = (a, b)
 ll exgcd(ll a,ll b,ll &x,ll &y) {
     if(!b){ x = 1; y = 0; return a;}
