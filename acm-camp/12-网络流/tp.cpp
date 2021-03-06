@@ -1,9 +1,6 @@
-#include <iostream>
-#include <queue>
-#include <cstring>
+#include<bits/stdc++.h>
 using namespace std;
-#define rep(i, a, b) for(int i = a; i <= b; i++)
-#define mp make_pair
+#define rep(i, a, b) for(int i = (a); i <= (b); ++i)
 
 typedef long long ll;
 const ll INF = 0x3f3f3f3f3f3f3f3f;
@@ -14,8 +11,7 @@ struct Edge {
     int from, to, pre;
     ll w;
 } e[M];
-int last[M];
-int tot = 0;
+int last[M], tot = 1;
 
 void ine(int a, int b, ll w) {
     tot++;
@@ -23,18 +19,10 @@ void ine(int a, int b, ll w) {
     e[tot].pre = last[a];
     last[a] = tot;
 }
-inline void ine2(int a, int b, ll w) {
-    ine(a, b, w); ine(b, a, w);
-}
-
-
-#define reg(i, x) for(int i = last[x]; i; i = e[i].pre)
-
 
 // 最大流
-int n, m, s, t, lv[N], cur[M];  // lv：每点层数，cur：当前弧
-inline bool bfs() 
-{
+int s, t, lv[N], cur[M];  // lv：每点层数，cur：当前弧
+inline bool bfs(int n)  {
     rep(i, 1, n) lv[i] = -1;
     lv[s] = 0;
     memcpy(cur, last, sizeof(last));
@@ -70,10 +58,10 @@ ll dfs(int u = s, ll f = INF) {
     return 0; // 输出流量大小
 }
 
-inline ll dinic()
+inline ll dinic(int n)
 {
     ll ans = 0;
-    while(bfs()) {
+    while(bfs(n)) {
         ll f;
         while((f = dfs()) > 0)
             ans += f;
@@ -81,18 +69,15 @@ inline ll dinic()
     return ans;
 }
 
-int main()
-{
+int main() {
+    int n, m, u, v; ll w;
     cin >> n >> m >> s >> t;
-    int u, v;
-    ll w;
     tot = 1;
     rep(i, 1, m) {
         scanf("%d %d %lld", &u, &v, &w);
-        ine(u, v, w);
-        ine(v, u, 0);
+        ine(u, v, w); // 正向边容量为w
+        ine(v, u, 0); // 反向边容量为0
     }
-
     cout << dinic() << endl;
 }
 

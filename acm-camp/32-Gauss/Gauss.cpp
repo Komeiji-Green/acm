@@ -42,10 +42,11 @@ struct Mat {
 } mat;
 
 
+// 高斯消元-辗转相除（求行列式）
 const int N = 20;
 struct Mat {
     int a[N][N], n, m;
-    void set(int _n, int _m, int val) {
+    void init(int _n, int _m, int val) {
         n = _n, m = _m;
         for(int i = 0; i < n; ++i) for(int j = 0; j < m; ++j) a[i][j] = val;
     }
@@ -67,10 +68,11 @@ struct Mat {
     }
 } mat;
 
+// 高斯消元（求秩，解方程）
 const int L = 512;
 ll a[L][L+1], ans[L];
 void gauss(int n, int m) { // 消增广矩阵
-    vector<int> pos(m, -1);
+    vector<int> pos(m, -1); // 有效pos的数量即为秩
     ll inv, del;
     for(int r = 0, c = 0; c < m; ++c) {
         int sig = -1;
@@ -78,7 +80,7 @@ void gauss(int n, int m) { // 消增广矩阵
             if(a[i][c]) {
                 sig = i; break;
             }
-        if(sig == -1) continue;
+        if(sig == -1) continue; // 空列
         pos[c] = r;
         if(sig != r) swap(a[sig], a[r]);
         inv = Pow(a[r][c], mod - 2);
@@ -89,7 +91,7 @@ void gauss(int n, int m) { // 消增广矩阵
         }
         ++r;
     }
-    for(int i = 0; i < m; ++i) {
+    for(int i = 0; i < m; ++i) { // ax = b
         if(pos[i] != -1) {
             ans[i] = Pow(a[pos[i]][i], mod - 2) * a[pos[i]][m] % mod;
         }

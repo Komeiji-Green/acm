@@ -2,7 +2,7 @@
 using namespace std;
 
 // https://blog.bill.moe/blossom-algorithm-notes/
-// 带花树模板
+// 带花树: 一般图最大匹配
 const int maxn=505;
 
 struct Match {
@@ -77,7 +77,7 @@ struct Match {
     }
 
     void gao() {
-        int res = 0;
+        int res = 0; // 最大匹配数
         for(int i = n; i >= 1; --i) if(!match[i]) res += Augument(i);
         printf("%d\n", res);
         for(int i = 1; i <= n; ++i) printf("%d ",match[i]);

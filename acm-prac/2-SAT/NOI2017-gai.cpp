@@ -33,26 +33,21 @@ void init(int n) {
     tot = 0; clc = 0; sccnum = 0; top = 0;
     for(int i = 1; i <= n; ++i) last[i] = 0, vis[i] = 0, low[i] = 0, dfn[i] = 0;
 }
-void tarjan(int cur, int dad)
-{
+void tarjan(int cur, int dad) {
     sta[++top] = cur;
     vis[cur] = 0;
     dfn[cur] = ++clc;
     low[cur] = clc;
-    //bool flag = false;
-    reg(i, cur)
-    {
-        //flag = true;
+    reg(i, cur) {
         int nex = e[i].to;
-        if (!dfn[nex]) { // ����
+        if (!dfn[nex]) { // 树边
             tarjan(nex, cur);
             low[cur] = min(low[cur], low[nex]);
-        }
-        else if (!vis[nex]) { // ���ر�
+        } else if (!vis[nex]) { 
             low[cur] = min(low[cur], dfn[nex]);
         }
     }
-    if((dfn[cur] == low[cur]) /*|| (dad == 0 && !flag)*/) { 
+    if(dfn[cur] == low[cur]) { 
         sccnum++;
         do {
             vis[sta[top]] = 1;
