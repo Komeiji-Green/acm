@@ -79,6 +79,42 @@ int query(int x, int y) {
     return ans;
 }
 
+
+const int N = 300007;
+struct ST {
+    int su[N*20], lch[N*20], rch[N*20], tot;
+    void init() {
+        for(int i = 0; i <= tot; ++i) su[i] = 0, lch[i] = 0, rch[i] = 0;
+        tot = 0;
+    }
+    void pushup(int k) {
+        su[k] = su[lch[k]] + su[rch[k]];
+    }
+    void update(int &k, int x, int v, int l, int r) {
+        if(!k) k = ++tot;
+        if(l == r) {
+            su[k] += v;
+        } else {
+            int m = ((l + r) >> 1);
+            if(x <= m) update(lch[k], x, v, l, m);
+            else update(rch[k], x, v, m + 1, r);
+            pushup(k);
+        }
+    }
+    int query(int k, int L, int R, int l, int r) {
+        if(!k) return 0;
+        if(L <= l && r <= R) {
+            return su[k];
+        } else {
+            int m = ((l + r) >> 1);
+            int res = 0;
+            if(L <= m) res += query(lch[k], L, R, l, m);
+            if(R > m) res += query(rch[k], L, R, m+1, r);
+            return res;
+        }
+    }
+} tr, tc;
+
 struct BIT {
     ll C[N];
     void add(int x, ll v) {
