@@ -100,18 +100,11 @@ void InvList(int p) {
 }
 
 // 快速幂 计算 a^k % p
-ll Pow(ll a, ll k, ll p) {
-    ll ans = 1;
-    while(k) {
-        if(k & 1) ans = ans * a % p;
-        k >>= 1; a = a * a % p;
-    }
-    return ans;
-}
+int
 
 // 慢速乘
 ll mul(ll a, ll b, ll mod) {
-    ll res=0;
+    ll res = 0;
     while(b > 0) {
         if(b & 1) res = (res+a)%mod;
         a = (a + a) % mod;
@@ -279,7 +272,7 @@ ll exlucas(ll n, ll m, ll P) {
 /*
 大数除小数：
 a的本值太大无法表示？
-(a / b) % p == a % (b * p) / b % p;
+(a / b) % p == ( ( a % (b * p) ) / b ) % p;
 */
 
 bool Miller_Rabin(ll x) //判断素数，事先打好素数表
