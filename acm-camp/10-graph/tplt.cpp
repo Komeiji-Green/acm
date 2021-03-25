@@ -14,8 +14,7 @@ struct Edge {
     int from, to, pre;
     ll w;
 } e[M];
-int last[N];
-int tot = 0;
+int last[N], tot = 0;
 
 void ine(int a, int b, ll w) {
     tot++;
