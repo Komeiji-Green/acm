@@ -94,13 +94,20 @@ int euler(int n) {
 
 // 求模p的乘法逆元 [1, p - 1]
 int inv[maxn];
-void InvList(int p) {
+void init() {
     inv[0] = 0, inv[1] = 1;
-    for(int i = 2; i < p; i++) inv[i] = 1ll * inv[p % i] * (p - p / i) % p;
+    for(int i = 2; i < N; ++i) inv[i] = inv[mod % i] * (mod - mod / i) % mod;
 }
 
 // 快速幂 计算 a^k % p
-int
+ll Pow(ll a, ll k, ll p) {
+    ll ans = 1;
+    while(k) {
+        if(k & 1) ans = ans * a % p;
+        k >>= 1; a = a * a % p;
+    }
+    return ans;
+}
 
 // 慢速乘
 ll mul(ll a, ll b, ll mod) {
